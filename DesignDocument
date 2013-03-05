@@ -1,0 +1,24 @@
+The system comprises of: clients, servers, and a registry-server. 
+
+Client communicates to its server to Subscribe and Publish articles.
+We deploy a server (group server) and a set of clients. Clients communicate to their server by means of RMI to publish
+and subscribe. The server determines the matching set of clients for a published article, and then propagates the 
+article to each client via UDP. Thus, we did multithreading at client: one thread for RMI and the other for receiving
+subscribed articles. The client first joins to their local server when it starts up.
+The server allows at most MAXCLIENT clients at any one time. A client may leave a server at any time.
+Server begins by registering with a registry-server deployed at a well-known address. Implemented UDP for Register 
+passing to it (IP, Port, and RMI). Server may also Deregister. 
+
+The registry stores information about all group servers. To obtain this list, "GetList" is called via UDP. Group server
+chooses to scale out by joining another group’s server via and RMI call JoinServer. To do this, group server gets the
+list of available group servers that speak its RMI protocol. The destination server may refuse if it is over the 
+MAXCLIENT threshold.
+
+If server A joins to server B, then any article that is Published to A, should be then Published to B (from A)and 
+vice-versa. Thus, group server also acts as a client, and is multithreaded. 
+
+Each article is propagated (to both clients and joined servers) as it is published. Once an article is propagated it
+is be garbage-collected at the server. Duplicate article propagation is prevented that could cause un-due overhead
+in a network. 
+To check whether server is up or not, the clients and registry-server sends heartbeat messages (Ping) to server 
+periodically via UDP.
