@@ -20,5 +20,5 @@ vice-versa. Thus, group server also acts as a client, and is multithreaded.
 Each article is propagated (to both clients and joined servers) as it is published. Once an article is propagated it
 is be garbage-collected at the server. Duplicate article propagation is prevented that could cause un-due overhead
 in a network. 
-To check whether server is up or not, the clients and registry-server sends heartbeat messages (Ping) to server 
+To check whether server is up or not, the clients and registry-server send heartbeat messages (Ping) to server 
 periodically via UDP.
