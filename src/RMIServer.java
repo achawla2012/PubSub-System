@@ -30,6 +30,7 @@ public class RMIServer {
                     }
         return "dfdf";
     }
+    
     public static void main(String[] args) throws  RemoteException, MalformedURLException {
         try {
             String serverIp = Utility.getIP(); 
