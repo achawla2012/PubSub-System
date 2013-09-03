@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.*;
-
 public interface Communicate extends Remote {
         boolean Check() throws RemoteException, NotBoundException;
         boolean JoinServer (String IP, int Port) throws RemoteException;
