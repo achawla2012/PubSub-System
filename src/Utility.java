@@ -7,28 +7,21 @@ public class Utility {
     public static int max_clients = 10;
     public static int RMIRegistryPort = 5555;
     public static String getIP() throws SocketException{
-        try
-		{
-			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-			{
-				NetworkInterface intf = en.nextElement();
-				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-				{
-					InetAddress inetAddress = enumIpAddr.nextElement();
-					//System.out.println(inetAddress.getHostAddress().toString());
-					if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress())// && inetAddress.isSiteLocalAddress())
-					{
-						//System.out.println("return");
-						return inetAddress.getHostAddress().toString();
-					}
+        try{
+		for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();){
+			NetworkInterface intf = en.nextElement();
+			for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();){
+				InetAddress inetAddress = enumIpAddr.nextElement();
+				//System.out.println(inetAddress.getHostAddress().toString());
+				if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress()){
+					return inetAddress.getHostAddress().toString();
 				}
 			}
 		}
-		catch (SocketException ex)
-		{
-			System.out.println(ex.getMessage());
-			return null;
-		}
+	}catch (SocketException ex){
+		System.out.println(ex.getMessage());
 		return null;
+	}
+	return null;
     }
 }
